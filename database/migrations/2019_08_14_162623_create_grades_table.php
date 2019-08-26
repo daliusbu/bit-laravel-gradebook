@@ -16,8 +16,8 @@ class CreateGradesTable extends Migration
         Schema::create('grades', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('grade');
-            $table->bigInteger('lecture_id')->unsigned()->nullable();
-            $table->bigInteger('student_id')->unsigned()->nullable();
+            $table->bigInteger('lecture_id')->unsigned();
+            $table->bigInteger('student_id')->unsigned();
             $table->timestamps();
 
             $table->index('student_id');
@@ -35,8 +35,6 @@ class CreateGradesTable extends Migration
                 ->on('students')
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
-
-
 
             // Engine
             $table->engine = 'InnoDB';

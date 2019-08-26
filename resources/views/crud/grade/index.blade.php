@@ -2,8 +2,7 @@
 
 @section('content')
     <h2>Student grades</h2>
-
-    <div>
+    <div class="my-3">
         <form action="{{ route('crud.grade.index') }}" method="GET" id="filter-form">
             <select name="sf" id="list-filter">
                 <option value="">{{ __('--All--') }}</option>
@@ -14,11 +13,12 @@
             </select>
         </form>
     </div>
-
-    <div class="my-3">
-        <a href="{{ route('crud.grade.add') }}">ADD </a>
-        <a href="#" id="button-trash">&nbsp; DELETE</a>
-    </div>
+    @auth
+        <div class="my-3">
+            <a href="{{ route('crud.grade.add') }}">ADD </a>
+            <a href="#" id="button-trash">&nbsp; DELETE</a>
+        </div>
+    @endauth
 
     <div>
         <form id="selected-form" method="POST" action="{{ route('crud.grade.delete') }}">
@@ -28,7 +28,9 @@
             <table class="table table-responsive table-striped">
                 <thead>
                 <tr>
-                    <th><input type="checkbox" id="select-all"></th>
+                    @auth
+                        <th><input type="checkbox" id="select-all"></th>
+                    @endauth
                     <th>Student</th>
                     <th>Lecture</th>
                     <th>Grade</th>
@@ -37,13 +39,14 @@
                 <tbody>
                 @foreach ($grades as $grade)
                     <tr>
-                        <td><input type="checkbox" name="selected[]" value="{{ $grade->id }}">&nbsp;
-                            <a href="{{ route('crud.grade.edit', ['id' => $grade->id]) }}">{{ 'Edit' }}</a>
-                        </td>
+                        @auth
+                            <td><input type="checkbox" name="selected[]" value="{{ $grade->id }}">&nbsp;
+                                <a href="{{ route('crud.grade.edit', ['id' => $grade->id]) }}">{{ 'Edit' }}</a>
+                            </td>
+                        @endauth
                         <td>
                             <a href="{{ route('crud.grade.view', ['id' => $grade->id] )}}">{{ $grade->student->name }} {{ $grade->student->surname }}</a>
                         </td>
-{{--                                        {{ dump($grades->lecture, die()) }}--}}
 
                         <td>{{ $grade->lecture->name }}</td>
                         <td>{{ $grade->grade }}</td>
@@ -63,6 +66,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // Trash form submit
+            @auth
             document.getElementById('button-trash').addEventListener('click', function () {
                 document.getElementById('selected-form').submit();
             });
@@ -74,6 +78,7 @@
                     item.checked = check;
                 });
             });
+            @endauth
             // Filter form submit on select change
             document.getElementById('list-filter').addEventListener('change', function () {
                 document.getElementById('filter-form').submit();

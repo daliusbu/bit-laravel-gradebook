@@ -15,9 +15,19 @@ class LectureController extends Controller
         $filter = $request->input('sf', $request->session()->get('lecture_filter', ''));
         $request->session()->put('lecture', $filter);
         $lectures = Lecture::orderBy('name', 'asc')
+            ->with('hasGrade:id')
             ->paginate(5);
 
         return view('crud.lecture.index', ['lectures' => $lectures]);
+    }
+
+    public function view($id)
+    {
+        $lecture = Lecture::findOrFail($id);
+
+        return view('crud.lecture.view', [
+            'lecture' => $lecture,
+        ]);
     }
 
 

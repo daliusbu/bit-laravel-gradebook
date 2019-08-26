@@ -29,10 +29,16 @@
                 <tbody>
                 @foreach ($lectures as $lecture)
                     <tr>
-                        <td><input type="checkbox" name="selected[]" value="{{ $lecture->id }}">&nbsp;
+                        <td>
+                            @if (isset($lecture->hasgrade))
+
+                                <input type="checkbox" name="selected[]" value="{{ $lecture->id }}" disabled>&nbsp;
+                            @else
+                                <input type="checkbox" name="selected[]" value="{{ $lecture->id }}">&nbsp;
+                            @endif
                             <a href="{{ route('crud.lecture.edit', ['id' => $lecture->id]) }}">{{ 'Edit' }}</a>
                         </td>
-                        <td>{{ $lecture->name }}</td>
+                        <td><a href="{{ route('crud.lecture.view', ['id' => $lecture->id]) }}">{{ $lecture->name }}</a></td>
                         <td>{!! $lecture->description !!}</td>
                     </tr>
                 @endforeach

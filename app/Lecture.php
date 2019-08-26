@@ -15,4 +15,8 @@ class Lecture extends Model
     {
         return $this->hasMany('App\Grade');
     }
+
+    public function hasGrade() {
+        return $this->hasOne(Grade::class);
+    }
 }

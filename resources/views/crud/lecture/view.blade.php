@@ -3,31 +3,30 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h1>Student grade</h1>
+            <h1>Lecture</h1>
         </div>
         <div class="card-body">
             @include('partials.form-errors')
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Student</th>
                     <th>Lecture</th>
-                    <th>Grade</th>
+                    <th>Description</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>{{ $grade->student->name }}</td>
-                    <td>{{ $grade->lecture->name }}</td>
-                    <td>{{ $grade->grade }}</td>
+                    <td>{{ $lecture->name }}</td>
+                    <td>{!! $lecture->description !!}</td>
                 </tr>
                 </tbody>
             </table>
 
             <div class="">
-                <a href="{{ route('crud.grade.index') }}"><-- Back</a>&nbsp;
+                <a href="{{ route('crud.lecture.index') }}"><-- Back</a>&nbsp;
                 @auth
-                    <a href="{{ route('crud.grade.edit', ['id'=>$grade->id]) }}"><button type="submit">Edit</button></a>
+                    <a href="{{ route('crud.lecture.edit', ['id'=>$lecture->id]) }}">
+                        <button type="submit">Edit</button></a>
                 @endauth
             </div>
         </div>

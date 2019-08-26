@@ -15,7 +15,7 @@ class GradeController extends Controller
         $filter = $request->input('sf', $request->session()->get('student_filter', ''));
 
         // Remember current filter settings
-        $request->session()->put('student', $filter);
+        $request->session()->put('student_filter', $filter);
 
         // Grade list
         $grades = Grade::orderBy('student_id', 'asc')
