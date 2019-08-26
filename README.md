@@ -17,7 +17,9 @@ php artisan migrate:fresh --seed 	// visos lentos perkuriamos ir perseedinamos
 --- DATABASE ----------
 
 1. laravel new gradebook
-2. Naudoti catalog useri, nes jis pritaikytas mysql 8 versijai
+1.a. composer update
+2. Naudoti catalog useri, nes jis pritaikytas mysql 8 versijai arba
+    CREATE USER 'newuser'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
 	priskirti jam naujai susikurta db
 	apsirasyti viska .env faile
 3. php artisan make:migration create_lectures_table
